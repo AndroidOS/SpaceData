@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+
 }
 
 android {
@@ -33,6 +34,8 @@ android {
 
 def retrofitVersion = '2.3.0'
 def rxJavaVersion = '2.1.1'
+def lifeCycleExtensionVersion = '2.2.0'
+def lifecycleVersion = '2.2.0'
 
 dependencies {
 
@@ -54,4 +57,13 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
 
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifeCycleExtensionVersion"
+
+
+    implementation 'androidx.lifecycle:lifecycle-process:lifeCycleExtensionVersion'
+    implementation 'androidx.lifecycle:lifecycle-service:lifeCycleExtensionVersion'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:lifeCycleExtensionVersion'
+//    kapt 'androidx.lifecycle:lifecycle-compiler:lifeCycleExtensionVersion'
 }
+
+apply plugin: 'kotlin-kapt'

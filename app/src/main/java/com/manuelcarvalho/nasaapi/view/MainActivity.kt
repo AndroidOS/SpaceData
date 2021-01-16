@@ -4,20 +4,24 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.manuelcarvalho.nasaapi.R
+import com.manuelcarvalho.nasaapi.viewmodel.NasaViewModel
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: NasaViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
+        viewModel = ViewModelProviders.of(this)[NasaViewModel::class.java]
+
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            viewModel.fetchFromRemote()
         }
     }
 

@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class NasaApiService {
 
-    private val BASE_URL = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?"
+    private val BASE_URL = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/"
 
     private val api = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -16,7 +16,7 @@ class NasaApiService {
             .build()
             .create(NasaApi::class.java)
 
-    fun getQuakes(): Single<Root> {
+    fun getData(): Single<Root> {
         return api.getData()
     }
 
