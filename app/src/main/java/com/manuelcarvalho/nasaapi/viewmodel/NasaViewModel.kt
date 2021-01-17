@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import com.casa.azul.dogs.viewmodel.BaseViewModel
 import com.manuelcarvalho.nasaapi.model.NasaApiService
+import com.manuelcarvalho.nasaapi.model.Photo
 import com.manuelcarvalho.nasaapi.model.Root
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -23,22 +24,34 @@ class NasaViewModel(application: Application) : BaseViewModel(application) {
     fun fetchFromRemote() {
 
         disposable.add(
-            nasaservice.getData()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<Root>() {
-                    override fun onSuccess(nasaList: Root) {
+                nasaservice.getData()
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(object : DisposableSingleObserver<Root>() {
+                            override fun onSuccess(nasaList: Root) {
 
-                        Log.d(TAG, "RxJava  ${nasaList.photos}")
-                    }
+                                val photos = createNasaList(nasaList)
+                                Log.d(TAG, "RxJava  ${photos}")
+                                for (photo in photos) {
+                                    Log.d(TAG, "List  ${photo.img_src}")
+                                }
+                            }
 
-                    override fun onError(e: Throwable) {
+                            override fun onError(e: Throwable) {
 
-                        Log.d(TAG, "RxJava Error ${e.printStackTrace()}")
-                    }
+                                Log.d(TAG, "RxJava Error ${e.printStackTrace()}")
+                            }
 
-                })
+                        })
         )
+    }
+
+    private fun createNasaList(nasaList: Root): List<Photo> {
+        var list = mutableListOf<Photo>()
+        for (q in nasaList.photos!!) {
+            list.add(q)
+        }
+        return list
     }
 
 
