@@ -2,6 +2,7 @@ package com.manuelcarvalho.nasaapi.viewmodel
 
 import android.app.Application
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.casa.azul.dogs.viewmodel.BaseViewModel
 import com.manuelcarvalho.nasaapi.model.NasaApiService
 import com.manuelcarvalho.nasaapi.model.Photo
@@ -15,6 +16,8 @@ import io.reactivex.schedulers.Schedulers
 private const val TAG = "NasaViewModel"
 
 class NasaViewModel(application: Application) : BaseViewModel(application) {
+
+    val photoList = MutableLiveData<List<Photo>>()
 
 
     private val nasaservice = NasaApiService()
@@ -30,9 +33,9 @@ class NasaViewModel(application: Application) : BaseViewModel(application) {
                         .subscribeWith(object : DisposableSingleObserver<Root>() {
                             override fun onSuccess(nasaList: Root) {
 
-                                val photos = createNasaList(nasaList)
-                                Log.d(TAG, "RxJava  ${photos}")
-                                for (photo in photos) {
+                                photoList.value = createNasaList(nasaList)
+
+                                for (photo in photoList.value!!) {
                                     Log.d(TAG, "List  ${photo.img_src}")
                                 }
                             }
