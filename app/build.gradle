@@ -63,6 +63,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-process:lifeCycleExtensionVersion'
     implementation 'androidx.lifecycle:lifecycle-service:lifeCycleExtensionVersion'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:lifeCycleExtensionVersion'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
 //    kapt 'androidx.lifecycle:lifecycle-compiler:lifeCycleExtensionVersion'
 }
 
