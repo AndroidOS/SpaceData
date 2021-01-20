@@ -5,17 +5,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.manuelcarvalho.nasaapi.R
 import com.manuelcarvalho.nasaapi.viewmodel.NasaViewModel
+import com.squareup.picasso.Picasso
 
 private const val TAG = "FirstFragment"
 class FirstFragment : Fragment() {
 
     private lateinit var viewModel: NasaViewModel
 
+    private lateinit var pics: ImageView
+
+    //private var listURL =  MutableList<String>(0)
+    private var nasaURL = mutableListOf<String>()
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -26,6 +32,8 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        pics = view.findViewById(R.id.img_spacePic)
 
         viewModel = activity?.run {
             ViewModelProviders.of(this)[NasaViewModel::class.java]
@@ -41,6 +49,16 @@ class FirstFragment : Fragment() {
         viewModel.photoList.observe(viewLifecycleOwner, Observer { listURL ->
             listURL?.let {
                 Log.d(TAG, "${it}")
+                for (url in it) {
+                    Log.d(TAG, "${url.img_src.toString()}")
+                    nasaURL.add("${url.img_src.toString()}")
+                }
+
+                Picasso.get()
+                        .load(nasaURL[0])
+                        .resize(50, 50)
+                        .centerCrop()
+                        .into(pics)
             }
         })
 
