@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.manuelcarvalho.nasaapi.R
 import com.manuelcarvalho.nasaapi.viewmodel.NasaViewModel
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_first.*
 
 private const val TAG = "FirstFragment"
 class FirstFragment : Fragment() {
@@ -33,7 +34,8 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        pics = view.findViewById(R.id.img_spacePic)
+//        pics = view.findViewById(R.id.img_spacePic)
+//        pics.setImageResource(R.drawable.cat)
 
         viewModel = activity?.run {
             ViewModelProviders.of(this)[NasaViewModel::class.java]
@@ -54,11 +56,16 @@ class FirstFragment : Fragment() {
                     nasaURL.add("${url.img_src.toString()}")
                 }
 
+//                Picasso.get()
+//                        .load(nasaURL[0])
+//
+//                        .into(pics)
+
                 Picasso.get()
                         .load(nasaURL[0])
-                        .resize(50, 50)
-                        .centerCrop()
-                        .into(pics)
+                        .placeholder(R.drawable.ic_launcher_background)
+                        .error(R.drawable.ic_launcher_foreground)
+                        .into(img_spacePic)
             }
         })
 
