@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = arrayOf(Photo1::class), version = 1)
 abstract class PhotoDatabase : RoomDatabase() {
-    abstract fun quakeDao(): Photo1
+    abstract fun photoDao(): PhotoDao
 
     companion object {
         @Volatile

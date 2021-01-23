@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         viewModel = ViewModelProviders.of(this)[NasaViewModel::class.java]
+        viewModel.fetchFromDatabase()
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             viewModel.fetchFromRemote()

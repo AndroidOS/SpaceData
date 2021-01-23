@@ -11,11 +11,11 @@ interface PhotoDao {
     suspend fun insertAll(vararg photos: Photo): List<Photo>
 
     @androidx.room.Query("SELECT * FROM photos")
-    suspend fun getAllQuakes(): List<Photo>
+    suspend fun getAllPhotos(): List<Photo>
 
-    @androidx.room.Query("SELECT * FROM photos WHERE uuid = :quakeId")
-    suspend fun getQuake(quakeId: Int): Photo
+    @androidx.room.Query("SELECT * FROM photos WHERE uuid = :photoId")
+    suspend fun getPhoto(quakeId: Int): Photo
 
     @androidx.room.Query("DELETE FROM photos")
-    suspend fun deleteAllQuakes()
+    suspend fun deleteAllPhotos()
 }
