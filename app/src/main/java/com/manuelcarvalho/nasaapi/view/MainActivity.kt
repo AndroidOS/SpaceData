@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.manuelcarvalho.nasaapi.R
 import com.manuelcarvalho.nasaapi.viewmodel.NasaViewModel
+import kotlinx.android.synthetic.main.fragment_first.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             viewModel.fetchFromRemote()
+            img_spacePic.setImageResource(R.drawable.cat)
         }
     }
 

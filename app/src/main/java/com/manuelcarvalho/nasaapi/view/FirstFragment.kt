@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,7 +18,7 @@ class FirstFragment : Fragment() {
 
     private lateinit var viewModel: NasaViewModel
 
-    private lateinit var pics: ImageView
+
 
     //private var listURL =  MutableList<String>(0)
     private var nasaURL = mutableListOf<String>()
@@ -35,7 +34,7 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 //        pics = view.findViewById(R.id.img_spacePic)
-//        pics.setImageResource(R.drawable.cat)
+        img_spacePic.setImageResource(R.drawable.cat)
 
         viewModel = activity?.run {
             ViewModelProviders.of(this)[NasaViewModel::class.java]
@@ -52,7 +51,7 @@ class FirstFragment : Fragment() {
             listURL?.let {
                 Log.d(TAG, "${it}")
                 for (url in it) {
-                    Log.d(TAG, "${url.img_src.toString()}")
+                    Log.d(TAG, "vm observe ${url.img_src.toString()}")
                     nasaURL.add("${url.img_src.toString()}")
                 }
 
@@ -62,10 +61,10 @@ class FirstFragment : Fragment() {
 //                        .into(pics)
 
                 Picasso.get()
-                        .load(nasaURL[0])
-                        .placeholder(R.drawable.ic_launcher_background)
-                        .error(R.drawable.ic_launcher_foreground)
-                        .into(img_spacePic)
+                    .load(nasaURL[0])
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_launcher_foreground)
+                    .into(img_spacePic)
             }
         })
 
