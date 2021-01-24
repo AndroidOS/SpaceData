@@ -5,10 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.casa.azul.dogs.viewmodel.BaseViewModel
-import com.manuelcarvalho.nasaapi.model.NasaApiService
-import com.manuelcarvalho.nasaapi.model.Photo
-import com.manuelcarvalho.nasaapi.model.PhotoDatabase
-import com.manuelcarvalho.nasaapi.model.Root
+import com.manuelcarvalho.nasaapi.model.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -30,27 +27,42 @@ class NasaViewModel(application: Application) : BaseViewModel(application) {
     fun fetchFromRemote() {
 
         disposable.add(
-            nasaservice.getData()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<Root>() {
-                    override fun onSuccess(nasaList: Root) {
+                nasaservice.getData()
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(object : DisposableSingleObserver<Root>() {
+                            override fun onSuccess(nasaList: Root) {
 
-                        photoList.value = createNasaList(nasaList)
+                                photoList.value = createNasaList(nasaList)
 
-                        for (photo in photoList.value!!) {
-                            Log.d(TAG, "List  ${photo.img_src}")
-                        }
-                    }
+                                for (photo in photoList.value!!) {
+                                    Log.d(TAG, "List  ${photo.img_src}")
+                                }
+                            }
 
-                    override fun onError(e: Throwable) {
+                            override fun onError(e: Throwable) {
 
-                        Log.d(TAG, "RxJava Error ${e.printStackTrace()}")
-                    }
+                                Log.d(TAG, "RxJava Error ${e.printStackTrace()}")
+                            }
 
-                })
+                        })
         )
     }
+
+//    private fun storePhotosLocally(photos: Root) {
+//        launch {
+//            val list = createPhotoList(photos)
+//            val dao = PhotoDatabase(getApplication()).photoDao()
+//            dao.deleteAllPhotos()
+//            val result = dao.insertAll(*list.toTypedArray())
+//            var i = 0
+////            while (i < list.size) {
+////                list[i].uuid = result[i].
+////                ++i
+////            }
+//            //fetchFromDatabase()
+//        }
+//    }
 
     fun fetchFromDatabase() {
 
@@ -58,9 +70,9 @@ class NasaViewModel(application: Application) : BaseViewModel(application) {
             val photos = PhotoDatabase(getApplication()).photoDao().getAllPhotos()
 
             Toast.makeText(
-                getApplication(),
-                "Photos retrieved from database",
-                Toast.LENGTH_SHORT
+                    getApplication(),
+                    "Photos retrieved from database",
+                    Toast.LENGTH_SHORT
             ).show()
         }
     }
@@ -77,6 +89,14 @@ class NasaViewModel(application: Application) : BaseViewModel(application) {
     override fun onCleared() {
         super.onCleared()
         disposable.clear()
+    }
+
+    private fun createPhotoList(photosList: Root): List<Photo1> {
+        var list = mutableListOf<Photo1>()
+        for (q in photosList.photos!!) {
+            list.add(Photo1(q.img_src))
+        }
+        return list
     }
 
 

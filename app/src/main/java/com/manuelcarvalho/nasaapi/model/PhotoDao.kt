@@ -8,13 +8,13 @@ import androidx.room.Insert
 interface PhotoDao {
 
     @Insert
-    suspend fun insertAll(vararg photos: Photo): List<Photo>
+    suspend fun insertAll(vararg photos: Photo1): List<Photo1>
 
     @androidx.room.Query("SELECT * FROM photos")
-    suspend fun getAllPhotos(): List<Photo>
+    suspend fun getAllPhotos(): List<Photo1>
 
     @androidx.room.Query("SELECT * FROM photos WHERE uuid = :photoId")
-    suspend fun getPhoto(quakeId: Int): Photo
+    suspend fun getPhoto(quakeId: Int): Photo1
 
     @androidx.room.Query("DELETE FROM photos")
     suspend fun deleteAllPhotos()
