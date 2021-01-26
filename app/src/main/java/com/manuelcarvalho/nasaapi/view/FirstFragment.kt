@@ -32,16 +32,17 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.d(TAG, "onViewCreated")
 //        pics = view.findViewById(R.id.img_spacePic)
         img_spacePic.setImageResource(R.drawable.cat)
+        Log.d(TAG, "${img_spacePic.id}")
 
         viewModel = activity?.run {
             ViewModelProviders.of(this)[NasaViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
         observeViewModel()
-
+        view.invalidate()
     }
 
     private fun observeViewModel() {

@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             viewModel.fetchFromRemote()
             img_spacePic.setImageResource(R.drawable.cat)
+            //img_spacePic.setImageDrawable(cat)
         }
     }
 
